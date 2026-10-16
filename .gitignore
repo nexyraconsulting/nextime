@@ -1,0 +1,16 @@
+# dependencies
+node_modules/
+server/node_modules/
+
+# secrets / env (never commit real secrets; .env.example is the template)
+.env
+server/.env
+*.pem
+
+# logs
+npm-debug.log*
+*.log
+
+# OS / editor
+.DS_Store
+Thumbs.db

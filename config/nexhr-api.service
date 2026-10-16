@@ -1,0 +1,24 @@
+# NexHR API - systemd service. Copy to /etc/systemd/system/nexhr-api.service, then:
+#   sudo systemctl daemon-reload && sudo systemctl enable --now nexhr-api
+# Assumes the package is at /var/www/nexhr and runs as the unprivileged user "nexhr".
+[Unit]
+Description=NexHR API and web server
+After=network.target postgresql.service
+
+[Service]
+Type=simple
+User=nexhr
+Group=nexhr
+WorkingDirectory=/var/www/nexhr/server
+ExecStart=/usr/bin/node server.js
+Restart=on-failure
+RestartSec=5
+Environment=NODE_ENV=production
+# Secrets are read from /var/www/nexhr/server/.env (chmod 600, owned by nexhr).
+NoNewPrivileges=true
+ProtectSystem=full
+PrivateTmp=true
+ReadWritePaths=/var/lib/nexhr_storage
+
+[Install]
+WantedBy=multi-user.target

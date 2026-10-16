@@ -1,0 +1,5 @@
+# NexHR scheduled jobs. Install for the "nexhr" user with: crontab -u nexhr config/crontab.txt
+# Times are server time. Logs go to /var/log/nexhr/ (create it, owned by nexhr).
+15 * * * *  cd /var/www/nexhr/server && /usr/bin/node jobs.js seats            >> /var/log/nexhr/jobs.log 2>&1
+30 3 * * *  cd /var/www/nexhr/server && /usr/bin/node jobs.js cleanup          >> /var/log/nexhr/jobs.log 2>&1
+0 9 * * *   cd /var/www/nexhr/server && /usr/bin/node jobs.js trial-reminders  >> /var/log/nexhr/jobs.log 2>&1
